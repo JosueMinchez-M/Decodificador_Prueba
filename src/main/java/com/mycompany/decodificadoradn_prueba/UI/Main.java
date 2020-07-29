@@ -6,6 +6,7 @@
 package com.mycompany.decodificadoradn_prueba.UI;
 
 import com.mycompany.decodificadoradn_interfazgrafica.TextPrompt;
+import com.mycompany.decodificadoradn_prueba.DecodificadorADN;
 
 /**
  *
@@ -22,6 +23,7 @@ public class Main extends javax.swing.JFrame {
         TextPrompt letraTemporal = new TextPrompt("Escriba la Primer Secuencia de ADN", txt_ADN1);
         letraTemporal = new TextPrompt("Ver aqui la Secuancia Resultante", txt_secuencia);
         letraTemporal = new TextPrompt("Escriba la Segunda Secuancia de ADN", txt_ADN2);
+        txt_secuencia.setEditable(false);
     }
 
     /**
@@ -41,12 +43,18 @@ public class Main extends javax.swing.JFrame {
         btn_analizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("DECODIFICADOR ADN");
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 153));
 
         jPanel2.setBackground(new java.awt.Color(153, 153, 153));
 
         btn_analizar.setText("ANALIZAR");
+        btn_analizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_analizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -64,9 +72,9 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(txt_ADN2)
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(119, Short.MAX_VALUE)
+                .addContainerGap(212, Short.MAX_VALUE)
                 .addComponent(btn_analizar)
-                .addGap(99, 99, 99))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -77,9 +85,9 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(txt_ADN1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txt_ADN2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addGap(36, 36, 36)
                 .addComponent(btn_analizar)
-                .addGap(34, 34, 34))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -112,6 +120,18 @@ public class Main extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_analizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_analizarActionPerformed
+        String adn1 = txt_ADN1.getText();
+        String adn2 = txt_ADN2.getText();
+        
+        DecodificadorADN decodificador = new DecodificadorADN();
+        if(decodificador.decodificador(adn1, adn2) != ""){
+            txt_secuencia.setText(decodificador.decodificador(adn1, adn2));
+        }else{
+            txt_secuencia.setText("NO EXISTE NINGUNA SECUENCIA");
+        }
+    }//GEN-LAST:event_btn_analizarActionPerformed
 
     /**
      * @param args the command line arguments
